@@ -8,7 +8,8 @@ export class CatsController extends BaseController {
   }
 
 
-  getAllCats(request, response, next) {
-    catsService.getAllCats()
+  async getAllCats(request, response, next) {
+    const cats = await catsService.getAllCats()
+    response.send(cats)
   }
 }
