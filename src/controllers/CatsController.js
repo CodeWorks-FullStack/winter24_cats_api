@@ -1,3 +1,4 @@
+import { catsService } from "../services/CatsService.js";
 import BaseController from "../utils/BaseController.js";
 
 export class CatsController extends BaseController {
@@ -8,6 +9,6 @@ export class CatsController extends BaseController {
 
 
   getAllCats(request, response, next) {
-    response.send("API is working!")
+    catsService.getAllCats()
   }
 }
