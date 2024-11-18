@@ -1,8 +1,18 @@
 import { dbContext } from "../db/DbContext.js"
 
 class CatsService {
-  createCat() {
-    throw new Error("Method not implemented.")
+  async getCatById(catId) {
+    const cat = await dbContext.Cats.findById(catId)
+
+    if (cat == null) {
+      throw new Error(`Invalid id: ${catId}`)
+    }
+
+    return cat
+  }
+  async createCat(catData) {
+    const cat = await dbContext.Cats.create(catData)
+    return cat
   }
   async getAllCats() {
     // NOTE this is the mongoose find, not the javascript array method

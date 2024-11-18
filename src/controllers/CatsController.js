@@ -4,7 +4,10 @@ import BaseController from "../utils/BaseController.js";
 export class CatsController extends BaseController {
   constructor() {
     super('api/cats')
-    this.router.get('', this.getAllCats).post('', this.createCat)
+    this.router
+      .get('', this.getAllCats)
+      .get('/:catId', this.getCatById)
+      .post('', this.createCat)
   }
 
 
@@ -19,7 +22,18 @@ export class CatsController extends BaseController {
 
   async createCat(request, response, next) {
     try {
-      const cat = await catsService.createCat()
+      const catData = request.body
+      const cat = await catsService.createCat(catData)
+      response.send(cat)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getCatById(request, response, next) {
+    try {
+      const catId = request.params.catId
+      const cat = await catsService.getCatById(catId)
       response.send(cat)
     } catch (error) {
       next(error)
